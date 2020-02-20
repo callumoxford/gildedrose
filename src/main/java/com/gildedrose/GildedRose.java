@@ -8,8 +8,7 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            Item item = items[i];
+        for (Item item : items) {
             if (!isAgedBrie(item)
                     && !isBackstagePass(item)) {
                 if (item.quality > 0) {
@@ -43,7 +42,7 @@ class GildedRose {
                             }
                         }
                     } else {
-                        item.quality = item.quality - item.quality;
+                        item.quality = 0;
                     }
                 }
             }
