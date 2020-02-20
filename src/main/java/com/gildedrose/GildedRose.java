@@ -17,8 +17,9 @@ class GildedRose {
             item.sellIn = item.sellIn - 1;
 
             if (isAgedBrie(item)) {
-                increaseQuality(item, 1);
                 if (item.sellIn < 0) {
+                    increaseQuality(item, 2);
+                } else {
                     increaseQuality(item, 1);
                 }
             } else if (isBackstagePass(item)) {
