@@ -20,27 +20,15 @@ public abstract class ItemUpdater {
         item.quality = Math.min(50, item.quality + i);
     }
 
-    static boolean isSulfuras(Item item) {
-        return item.name.equals("Sulfuras, Hand of Ragnaros");
-    }
-
-    static boolean isBackstagePass(Item item) {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
-    }
-
-    static boolean isAgedBrie(Item item) {
-        return item.name.equals("Aged Brie");
-    }
-
 
     public static ItemUpdater generateUpdater(Item item) {
-        if (isSulfuras(item)) {
+        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
             return new SulfurasUpdater(item);
         }
-        if (isAgedBrie(item)) {
+        if (item.name.equals("Aged Brie")) {
             return new AgedBrieUpdater(item);
         }
-        if (isBackstagePass(item)) {
+        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
             return new BackstagePassUpdater(item);
         }
         return new RegularItemUpdater(item);
