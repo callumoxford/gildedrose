@@ -1,6 +1,8 @@
 package com.gildedrose;
 
 class GildedRose {
+    public static final int BACKSTAGE_PASS_THRESHOLD_1 = 10;
+    public static final int BACKSTAGE_PASS_THRESHOLD_2 = 5;
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -12,6 +14,8 @@ class GildedRose {
             if (isSulfuras(item)) {
                 continue;
             }
+            item.sellIn = item.sellIn - 1;
+
             if (!isAgedBrie(item) && !isBackstagePass(item)) {
                 if (item.quality > 0) {
                     decreaseQuality(item);
@@ -19,15 +23,14 @@ class GildedRose {
             } else {
                 increaseQuality(item);
                 if (isBackstagePass(item)) {
-                    if (item.sellIn < 11) {
+                    if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
                         increaseQuality(item);
                     }
-                    if (item.sellIn < 6) {
+                    if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
                         increaseQuality(item);
                     }
                 }
             }
-            item.sellIn = item.sellIn - 1;
 
             if (item.sellIn < 0) {
                 if (isAgedBrie(item)) {
