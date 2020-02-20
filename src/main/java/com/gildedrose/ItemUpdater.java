@@ -20,7 +20,6 @@ public abstract class ItemUpdater {
         item.quality = Math.min(50, item.quality + i);
     }
 
-
     public static ItemUpdater generateUpdater(Item item) {
         if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
             return new SulfurasUpdater(item);
@@ -53,8 +52,6 @@ class ConjurerItemUpdater extends ItemUpdater {
         }
     }
 }
-
-
 
 class RegularItemUpdater extends ItemUpdater {
     public RegularItemUpdater(Item item) {
