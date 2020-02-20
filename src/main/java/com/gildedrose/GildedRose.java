@@ -17,42 +17,38 @@ class GildedRose {
             item.sellIn = item.sellIn - 1;
 
             if (isAgedBrie(item)) {
-                increaseQuality(item);
+                increaseQuality(item, 1);
                 if (item.sellIn < 0) {
-                    increaseQuality(item);
+                    increaseQuality(item, 1);
                 }
             } else if (isBackstagePass(item)) {
-                increaseQuality(item);
-                if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
-                    increaseQuality(item);
-                }
-                if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
-                    increaseQuality(item);
-                }
-                if (item.sellIn < 0) {
+                if (item.sellIn >= 0) {
+                    if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
+                        increaseQuality(item, 3);
+                    } else if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
+                        increaseQuality(item, 2);
+                    } else {
+                        increaseQuality(item, 1);
+                    }
+                } else {
                     item.quality = 0;
                 }
             } else {
-                if (item.quality > 0) {
-                    decreaseQuality(item);
-                }
                 if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        decreaseQuality(item);
-                    }
+                    decreaseQuality(item, 2);
+                } else {
+                    decreaseQuality(item, 1);
                 }
             }
         }
     }
 
-    private void decreaseQuality(Item item) {
-        item.quality = item.quality - 1;
+    private void decreaseQuality(Item item, int decrement) {
+        item.quality = Math.max(0, item.quality - decrement);
     }
 
-    private void increaseQuality(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
+    private void increaseQuality(Item item, int i) {
+        item.quality = Math.min(50, item.quality + i);
     }
 
     private boolean isSulfuras(Item item) {
