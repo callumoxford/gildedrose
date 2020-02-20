@@ -11,35 +11,39 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (isSulfuras(item)) {
-                continue;
-            }
-            item.sellIn = item.sellIn - 1;
+            updateItemQuality(item);
+        }
+    }
 
-            if (isAgedBrie(item)) {
-                if (item.sellIn < 0) {
+    private void updateItemQuality(Item item) {
+        if (isSulfuras(item)) {
+            return;
+        }
+        item.sellIn = item.sellIn - 1;
+
+        if (isAgedBrie(item)) {
+            if (item.sellIn < 0) {
+                increaseQuality(item, 2);
+            } else {
+                increaseQuality(item, 1);
+            }
+        } else if (isBackstagePass(item)) {
+            if (item.sellIn >= 0) {
+                if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
+                    increaseQuality(item, 3);
+                } else if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
                     increaseQuality(item, 2);
                 } else {
                     increaseQuality(item, 1);
                 }
-            } else if (isBackstagePass(item)) {
-                if (item.sellIn >= 0) {
-                    if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
-                        increaseQuality(item, 3);
-                    } else if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
-                        increaseQuality(item, 2);
-                    } else {
-                        increaseQuality(item, 1);
-                    }
-                } else {
-                    item.quality = 0;
-                }
             } else {
-                if (item.sellIn < 0) {
-                    decreaseQuality(item, 2);
-                } else {
-                    decreaseQuality(item, 1);
-                }
+                item.quality = 0;
+            }
+        } else {
+            if (item.sellIn < 0) {
+                decreaseQuality(item, 2);
+            } else {
+                decreaseQuality(item, 1);
             }
         }
     }
