@@ -16,19 +16,19 @@ class GildedRose {
             }
             item.sellIn = item.sellIn - 1;
 
-            if (!isAgedBrie(item) && !isBackstagePass(item)) {
-                if (item.quality > 0) {
-                    decreaseQuality(item);
+            if (isAgedBrie(item)) {
+                increaseQuality(item);
+            } else if (isBackstagePass(item)) {
+                increaseQuality(item);
+                if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
+                    increaseQuality(item);
+                }
+                if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
+                    increaseQuality(item);
                 }
             } else {
-                increaseQuality(item);
-                if (isBackstagePass(item)) {
-                    if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_1) {
-                        increaseQuality(item);
-                    }
-                    if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
-                        increaseQuality(item);
-                    }
+                if (item.quality > 0) {
+                    decreaseQuality(item);
                 }
             }
 
