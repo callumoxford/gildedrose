@@ -8,7 +8,7 @@ public abstract class ItemUpdater {
         this.item = item;
     }
 
-    public void update() {
+    public void age() {
         item.sellIn = item.sellIn - 1;
     }
 
@@ -41,8 +41,8 @@ class RegularItemUpdater extends ItemUpdater {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void age() {
+        super.age();
         if (item.sellIn < 0) {
             decreaseQuality(item, 2);
         } else {
@@ -57,8 +57,8 @@ class AgedBrieUpdater extends ItemUpdater {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void age() {
+        super.age();
         if (item.sellIn < 0) {
             increaseQuality(item, 2);
         } else {
@@ -73,7 +73,7 @@ class SulfurasUpdater extends ItemUpdater {
     }
 
     @Override
-    public void update() {
+    public void age() {
         //Never updates
     }
 }
@@ -87,8 +87,8 @@ class BackstagePassUpdater extends ItemUpdater {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void age() {
+        super.age();
         if (item.sellIn >= 0) {
             if (item.sellIn < BACKSTAGE_PASS_THRESHOLD_2) {
                 increaseQuality(item, 3);
