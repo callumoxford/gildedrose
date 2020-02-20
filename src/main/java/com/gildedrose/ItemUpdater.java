@@ -31,9 +31,30 @@ public abstract class ItemUpdater {
         if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
             return new BackstagePassUpdater(item);
         }
+        if (item.name.equals("Conjurer")) {
+            return new ConjurerItemUpdater(item);
+        }
         return new RegularItemUpdater(item);
     }
 }
+
+class ConjurerItemUpdater extends ItemUpdater {
+    public ConjurerItemUpdater(Item item) {
+        super(item);
+    }
+
+    @Override
+    public void age() {
+        super.age();
+        if (item.sellIn < 0) {
+            decreaseQuality(item, 4);
+        } else {
+            decreaseQuality(item, 2);
+        }
+    }
+}
+
+
 
 class RegularItemUpdater extends ItemUpdater {
     public RegularItemUpdater(Item item) {
